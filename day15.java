@@ -13,47 +13,45 @@ public class day15 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Properties prop = new Properties();
+		Properties pro = new Properties();
 		String path = "C:\\Users\\imson\\OneDrive\\Documents\\QA_Training\\Java\\workspace\\Selenium\\src\\one\\config.properties";
 
 		try {
 			FileInputStream fileInput = new FileInputStream(path);
-			prop.load(fileInput);
-			String url = prop.getProperty("baseUrl");
-			String browser = prop.getProperty("browser");
-			String un = prop.getProperty("username");
-			String pw = prop.getProperty("password");
+			pro.load(fileInput);
+			String url = pro.getProperty("baseurl");
+			String browser = pro.getProperty("browser");
+			String username = pro.getProperty("username");
+			String password = pro.getProperty("password");
 
-			// writing the file
-			prop.put("city", "irving");
-			FileOutputStream output = new FileOutputStream(path);
+			// writing back to the file
+			pro.put("city", "nashvill");
+			FileOutputStream fileOutput = new FileOutputStream(path);
+			// Storing the properties file
+			pro.store(fileOutput, "This is a sample properties file");
 
 			if (browser.equals("chrome")) {
-				// code to set up browser
 				ChromeDriver driver = new ChromeDriver();
 				driver.get(url);
-				driver.findElement(By.cssSelector("#user-name")).sendKeys(un);
-				driver.findElement(By.cssSelector("#password")).sendKeys(pw);
+				driver.findElement(By.cssSelector("#user-name")).sendKeys(username);
+				driver.findElement(By.cssSelector("#password")).sendKeys(password);
 				driver.findElement(By.cssSelector("#login-button")).click();
-				;
 
 				if (driver.getCurrentUrl().contains("inventory")) {
-					System.out.println("test case pass");
+					System.out.println("TestCase pass");
 				} else {
-					System.out.println("test case fail");
+					System.out.println("TestCase fail");
 				}
 
 			} else if (browser.equals("firefox")) {
-				// code to set up firefox
+
 			} else if (browser.equals("edge")) {
-				// code to edge
+
 			}
 
 		} catch (FileNotFoundException e) {
-
 			e.printStackTrace();
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 
